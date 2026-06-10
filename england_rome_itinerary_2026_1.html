@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>England & Rome — Casey & Ashley, June 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:   #1B2A3B;
+    --gold:   #C9A96E;
+    --gold-lt:#E8D5B0;
+    --parch:  #F7F3ED;
+    --slate:  #8A9BAE;
+    --ink:    #2C3E50;
+    --muted:  #6B7C8D;
+    --rule:   #DDD5C8;
+    --white:  #FFFFFF;
+    --alert:  #B85C38;
+    --alert-bg:#FDF0EB;
+    --new:    #3A6351;
+    --new-bg: #EBF4EF;
+  }
+
+  body {
+    background: var(--parch);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    font-size: 14px;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    background: var(--navy);
+    color: var(--white);
+    padding: 64px 56px 52px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,169,110,0.18);
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -120px; left: 40px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,169,110,0.1);
+  }
+  .cover-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 58px;
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .cover-title em {
+    font-style: italic;
+    color: var(--gold-lt);
+  }
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--slate);
+    margin-bottom: 36px;
+    font-style: italic;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 40px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .cover-meta-item { display: flex; flex-direction: column; gap: 4px; }
+  .cover-meta-label {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--slate);
+  }
+  .cover-meta-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--white);
+  }
+  .destinations-strip {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 12px 56px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  /* ── ACTION BANNER ── */
+  .action-banner {
+    background: var(--alert-bg);
+    border-left: 3px solid var(--alert);
+    margin: 32px 56px 0;
+    padding: 16px 20px;
+    border-radius: 0 4px 4px 0;
+  }
+  .action-banner h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--alert);
+    margin-bottom: 10px;
+  }
+  .action-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .action-item:last-child { margin-bottom: 0; }
+  .action-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--alert);
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  /* ── BOOKINGS SUMMARY ── */
+  .summary-section {
+    margin: 32px 56px 0;
+    padding: 24px 28px;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+  }
+  .summary-section h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .booking-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 32px;
+  }
+  .booking-item {}
+  .booking-category {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .booking-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.2;
+  }
+  .booking-detail {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .ref {
+    display: inline-block;
+    font-size: 10px;
+    background: #EEF1F4;
+    color: var(--muted);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: monospace;
+    margin-top: 3px;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline-section {
+    margin: 40px 56px 0;
+  }
+  .timeline-section-title {
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .day {
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    gap: 0 28px;
+    margin-bottom: 0;
+    position: relative;
+  }
+  .day::before {
+    content: '';
+    position: absolute;
+    left: 88px;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: var(--rule);
+  }
+  .day:last-child::before { height: 48px; }
+
+  .day-date-col {
+    padding-top: 20px;
+    text-align: right;
+    padding-right: 28px;
+    position: relative;
+  }
+  .day-date-col::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: 29px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--parch);
+  }
+  .day-weekday {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--slate);
+    display: block;
+  }
+  .day-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--navy);
+    line-height: 1;
+    display: block;
+  }
+  .day-month {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+  }
+
+  .day-content {
+    padding: 20px 0 32px 0;
+  }
+  .day-location {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .day-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--navy);
+    margin-bottom: 16px;
+    line-height: 1.1;
+  }
+
+  .event {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+  .event-time {
+    font-size: 11px;
+    color: var(--muted);
+    min-width: 52px;
+    padding-top: 1px;
+    font-weight: 400;
+  }
+  .event-body { flex: 1; }
+  .event-icon {
+    font-size: 13px;
+    min-width: 20px;
+    padding-top: 1px;
+  }
+  .event-name {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .event-detail {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+    line-height: 1.5;
+  }
+  .event-ref {
+    display: inline-block;
+    font-size: 10px;
+    background: #EEF1F4;
+    color: var(--muted);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: monospace;
+    margin-top: 4px;
+  }
+
+  .event.new .event-name { color: var(--new); }
+  .event.new .event-body {
+    background: var(--new-bg);
+    border-left: 2px solid var(--new);
+    padding: 8px 12px;
+    border-radius: 0 4px 4px 0;
+    margin-left: -14px;
+    padding-left: 12px;
+  }
+  .event.alert .event-body {
+    background: var(--alert-bg);
+    border-left: 2px solid var(--alert);
+    padding: 8px 12px;
+    border-radius: 0 4px 4px 0;
+    margin-left: -14px;
+    padding-left: 12px;
+  }
+  .event.alert .event-name { color: var(--alert); }
+
+  .new-badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--new);
+    color: white;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .book-badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--alert);
+    color: white;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .note-inline {
+    font-size: 11.5px;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: rgba(201,169,110,0.08);
+    border-radius: 4px;
+    border-left: 2px solid var(--gold-lt);
+  }
+
+  .day-divider {
+    height: 1px;
+    background: var(--rule);
+    margin: 4px 0 0 0;
+  }
+
+  /* ── PRACTICAL NOTES ── */
+  .notes-section {
+    margin: 40px 56px 0;
+    padding: 24px 28px;
+    background: var(--navy);
+    color: var(--white);
+    border-radius: 4px;
+  }
+  .notes-section h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--gold-lt);
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .notes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 40px;
+  }
+  .notes-block h4 {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .notes-block ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .notes-block ul li {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.75);
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .notes-block ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 10px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin: 32px 56px 56px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-left {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--muted);
+  }
+  .footer-right {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--slate);
+  }
+
+  @media print {
+    body { background: white; }
+    .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-eyebrow">Private Travel Itinerary · June–July 2026</div>
+  <div class="cover-title">England<br><em>&amp; Rome</em></div>
+  <div class="cover-subtitle">A journey for two</div>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Travelers</span>
+      <span class="cover-meta-value">Casey &amp; Ashley</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Departure</span>
+      <span class="cover-meta-value">Tuesday, June 23</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Return</span>
+      <span class="cover-meta-value">Friday, July 3</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Duration</span>
+      <span class="cover-meta-value">10 Days</span>
+    </div>
+  </div>
+</div>
+<div class="destinations-strip">London &nbsp;·&nbsp; The Cotswolds &nbsp;·&nbsp; Bath &nbsp;·&nbsp; Cliveden &nbsp;·&nbsp; Rome</div>
+
+<!-- ACTION ITEMS -->
+<div class="action-banner">
+  <h3>Action Required Before Departure</h3>
+  <div class="action-item"><div class="action-dot"></div><div><strong>UK ETA</strong> — Required for US citizens. £10/person. Apply now at gov.uk or via the UK ETA App (processing takes several days).</div></div>
+  <div class="action-item"><div class="action-dot"></div><div><strong>La Taverna dei Fori Imperiali</strong> — Jul 1 dinner for 4. Book immediately via Quandoo at latavernadeiforiimperiali.com — this restaurant fills up weeks ahead.</div></div>
+  <div class="action-item"><div class="action-dot"></div><div><strong>Jul 2 dinner</strong> — Nonna Betta or Osteria La Gensola, party of 4. Reserve before departure.</div></div>
+  <div class="action-item"><div class="action-dot"></div><div><strong>Roman Baths date</strong> — Ashley to forward original confirmation email (Ref RBODEUKDQ8CIJ) so it can be slotted into the itinerary.</div></div>
+  <div class="action-item"><div class="action-dot"></div><div><strong>The Chequers, Jun 28</strong> — Currently booked for 2 guests. Confirm whether to update to 4 if the other couple is joining for the Cotswolds leg.</div></div>
+</div>
+
+<!-- CONFIRMED BOOKINGS -->
+<div class="summary-section">
+  <h3>Confirmed Bookings at a Glance</h3>
+  <div class="booking-grid">
+    <div class="booking-item">
+      <div class="booking-category">Flights</div>
+      <div class="booking-name">SFO → LHR → FCO → SFO</div>
+      <div class="booking-detail">Jun 23 · Jun 30 · Jul 3 &nbsp;·&nbsp; United + ITA Airways</div>
+    </div>
+    <div class="booking-item">
+      <div class="booking-category">London, Jun 24–26</div>
+      <div class="booking-name">Hoxton Shoreditch</div>
+      <div class="booking-detail">Cosy Double &nbsp;·&nbsp; Flexible cancellation</div>
+      <div><span class="ref">#595958660485</span></div>
+    </div>
+    <div class="booking-item">
+      <div class="booking-category">Cotswolds, Jun 26–29</div>
+      <div class="booking-name">Wedgewood Barn, Long Compton</div>
+      <div class="booking-detail">Private Airbnb barn &nbsp;·&nbsp; 3 nights</div>
+      <div><span class="ref">RCM8533T22</span></div>
+    </div>
+    <div class="booking-item">
+      <div class="booking-category">Pre-Heathrow, Jun 29–30</div>
+      <div class="booking-name">Cliveden House</div>
+      <div class="booking-detail">Club Room &nbsp;·&nbsp; 15% summer rate &nbsp;·&nbsp; Non-refundable</div>
+      <div><span class="ref">#59369SG120285</span></div>
+    </div>
+    <div class="booking-item">
+      <div class="booking-category">Rome, Jun 30–Jul 3</div>
+      <div class="booking-name">Deluxe Room</div>
+      <div class="booking-detail">€221.75/night &nbsp;·&nbsp; 3 nights</div>
+      <div><span class="ref">8701/2026</span></div>
+    </div>
+    <div class="booking-item">
+      <div class="booking-category">Transport, Jun 26–30</div>
+      <div class="booking-name">Turo BMW X4</div>
+      <div class="booking-detail">Host: Adrian &nbsp;·&nbsp; Non-refundable</div>
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="timeline-section">
+  <div class="timeline-section-title">Day-by-Day Itinerary</div>
+
+  <!-- DAY 1: Jun 23 -->
+  <div class="day">
+    <div class="day-date-col">
+      <span class="day-weekday">Tue</span>
+      <span class="day-num">23</span>
+      <span class="day-month">June</span>
+    </div>
+    <div class="day-content">
+      <div class="day-location">San Francisco</div>
+      <div class="day-title">Departure Day</div>
+      <div class="event">
+        <div class="event-time">4:45 PM</div>
+        <div class="event-icon">✈</div>
+        <div class="event-body">
+          <div class="event-name">Depart SFO → London Heathrow</div>
+          <div class="event-detail">United UA948 &nbsp;·&nbsp; ~10h 25m &nbsp;·&nbsp; Carry-on only &nbsp;·&nbsp; Arrives Wed Jun 24 at 11:10 AM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 2: Jun 24 -->
+  <div class="day">
+    <div class="day-date-col">
+      <span class="day-weekday">Wed</span>
+      <span class="day-num">24</span>
+      <span class="day-month">June</span>
+    </div>
+    <div class="day-content">
+      <div class="day-location">London</div>
+      <div class="day-title">Arrive London</div>
+      <div class="event">
+        <div class="event-time">11:10 AM</div>
+        <div class="event-icon">✈</div>
+        <div class="event-body">
+          <div class="event-name">Arrive Heathrow (LHR)</div>
+          <div class="event-detail">Elizabeth line into Shoreditch (~50 min) &nbsp;·&nbsp; Grab an Oyster card at the airport</div>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">Afternoon</div>
+        <div class="event-icon">🏨</div>
+        <div class="event-body">
+          <div class="event-name">Check in — Hoxton Shoreditch</div>
+          <div class="event-detail">1 Old Street, London EC1V 9HL &nbsp;·&nbsp; Cosy Double (193 sqft)</div>
+          <span class="event-ref">#595958660485</span>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">Evening</div>
+        <div class="event-icon">🌆</div>
+        <div class="event-body">
+          <div class="event-name">Explore Shoreditch</div>
+          <div class="event-detail">Brick Lane, Spitalfields Market, Boxpark &nbsp;·&nbsp; Dinner in the neighbourhood</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 3: Jun 25 -->
+  <div class="day">
+    <div class="day-date-col">
+      <span class="day-weekday">Thu</span>
+      <span class="day-num">25</span>
+      <span class="day-month">June</span>
+    </div>
+    <div class="day-content">
+      <div class="day-location">London</div>
+      <div class="day-title">London Day Two</div>
+      <div class="event">
+        <div class="event-time">Morning</div>
+        <div class="event-icon">🗺</div>
+        <div class="event-body">
+          <div class="event-name">South Bank &amp; Borough Market</div>
+          <div class="event-detail">Tate Modern (free), Millennium Bridge, Borough Market for lunch</div>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">Afternoon</div>
+        <div class="event-icon">🏛</div>
+        <div class="event-body">
+          <div class="event-name">Tower Bridge &amp; East London</div>
+          <div class="event-detail">Tower Bridge viewpoint &nbsp;·&nbsp; V&amp;A or National Gallery (both free)</div>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">Evening</div>
+        <div class="event-icon">🍽</div>
+        <div class="event-body">
+          <div class="event-name">Dinner — East London</div>
+          <div class="event-detail">Suggested: Brat (Shoreditch), Brawn, or Dishoom for a classic</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 4: Jun 26 -->
+  <div class="day">
+    <div class="day-date-col">
+      <span class="day-weekday">Fri</span>
+      <span class="day-num">26</span>
+      <span class="day-month">June</span>
+    </div>
+    <div class="day-content">
+      <div class="day-location">London → Bath → Cotswolds</div>
+      <div class="day-title">Drive Day &amp; Iford Manor</div>
+      <div class="event">
+        <div class="event-time">Morning</div>
+        <div class="event-icon">🚗</div>
+        <div class="event-body">
+          <div class="event-name">Pick up Turo BMW X4 — London</div>
+          <div class="event-detail">Host: Adrian &nbsp;·&nbsp; Non-refundable &nbsp;·&nbsp; Head southwest toward Bath (~2 hrs)</div>
+        </div>
+      </div>
+      <div class="event new">
+        <div class="event-time">12:30 PM</div>
+        <div class="event-icon">🌿</div>
+        <div class="event-body">
+          <div class="event-name">Iford Manor Estate Gardens <span class="new-badge">New</span></div>
+          <div class="event-detail">Historic Wiltshire estate near Bath &nbsp;·&nbsp; 2 adult garden entry &nbsp;·&nbsp; Garden closes 4 PM — enter by 3 PM<br>On-site restaurant by award-winning Chef Matthew Briddon (book ahead for lunch)</div>
+          <span class="event-ref">D7PN4C7Q8</span>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">Evening</div>
+        <div class="event-icon">🏡</div>
+        <div class="event-body">
+          <div class="event-name">Check in — Wedgewood Barn, Long Compton</div>
+          <div class="event-detail">Private Airbnb barn &nbsp;·&nbsp; Long Compton, Cotswolds &nbsp;·&nbsp; Your base for 3 nights</div>
+          <span class="event-ref">RCM8533T22</span>
+        </div>
+      </div>
+      <div class="note-inline">Iford Manor is ~50 min south of Long Compton (near Bath) — plan it as an en-route stop rather than a day trip from the barn.</div>
+    </div>
+  </div>
+
+  <!-- DAY 5: Jun 27 -->
+  <div class="day">
+    <div class="day-date-col">
+      <span class="day-weekday">Sat</span>
+      <span class="day-num">27</span>
+      <span class="day-month">June</span>
+    </div>
+    <div class="day-content">
+      <div class="day-location">The Cotswolds</div>
+      <div class="day-title">Villages &amp; Countryside</div>
+      <div class="event">
+        <div class="event-time">All day</div>
+        <div class="event-icon">🗺</div>
+        <div class="event-body">
+          <div class="event-name">Cotswolds village hopping</div>
+          <div class="event-detail">Bourton-on-the-Water &nbsp;·&nbsp; Burford (antiques, great pubs) &nbsp;·&nbsp; Chipping Campden<br>The Slaughters (Upper &amp; Lower) — impossibly picturesque hamlets<br>Hidcote Manor Garden (National Trust) — stunning Arts &amp; Crafts gardens</div>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">TBD</div>
+        <div class="event-icon">🛁</div>
+        <div class="event-body">
+          <div class="event-name">Roman Baths, Bath — date TBD</div>
+          <div class="event-detail">If Ashley's ticket (Ref RBODEUKDQ8CIJ) is for this date, Bath is ~50 min from Long Compton and could anchor the day beautifully</div>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">Evening</div>
+        <div class="event-icon">🍺</div>
+        <div class="event-body">
+          <div class="event-name">Pub dinner in the Cotswolds</div>
+          <div class="event-detail">The Wild Rabbit (Kingham) &nbsp;·&nbsp; The Fleece Inn (Bretforton, 14th-century) &nbsp;·&nbsp; The Plough (Ford)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 6: Jun 28 -->
+  <div class="day">
+    <div class="day-date-col">
+      <span class="day-weekday">Sun</span>
+      <span class="day-num">28</span>
+      <span class="day-month">June</span>
+    </div>
+    <div class="day-content">
+      <div class="day-location">The Cotswolds</div>
+      <div class="day-title">Sunday Roast &amp; Last Cotswolds Day</div>
+      <div class="event new">
+        <div class="event-time">1:00 PM</div>
+        <div class="event-icon">🍖</div>
+        <div class="event-body">
+          <div class="event-name">The Chequers, Churchill — Sunday Roast <span class="new-badge">New</span></div>
+          <div class="event-detail">Church Rd, Churchill, Chipping Norton OX7 6NJ &nbsp;·&nbsp; 2 guests &nbsp;·&nbsp; ~10 min from Long Compton<br>⚠ Update to party of 4 if the other couple is joining for the Cotswolds leg</div>
+          <span class="event-ref">BJP4FZW2</span>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">Afternoon</div>
+        <div class="event-icon">🌳</div>
+        <div class="event-body">
+          <div class="event-name">Afternoon walk &amp; final Cotswolds hours</div>
+          <div class="event-detail">Rollright Stones (ancient stone circle, 10 min from Long Compton) &nbsp;·&nbsp; Relax at the barn</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 7: Jun 29 -->
+  <div class="day">
+    <div class="day-date-col">
+      <span class="day-weekday">Mon</span>
+      <span class="day-num">29</span>
+      <span class="day-month">June</span>
+    </div>
+    <div class="day-content">
+      <div class="day-location">Cotswolds → Cliveden House</div>
+      <div class="day-title">Check in to Cliveden</div>
+      <div class="event">
+        <div class="event-time">Morning</div>
+        <div class="event-icon">🏡</div>
+        <div class="event-body">
+          <div class="event-name">Check out — Wedgewood Barn</div>
+          <div class="event-detail">Drive southeast toward Taplow, Berkshire (~1.5–2 hrs) &nbsp;·&nbsp; Optional stop: Oxford or Windsor en route</div>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">Afternoon</div>
+        <div class="event-icon">🏰</div>
+        <div class="event-body">
+          <div class="event-name">Check in — Cliveden House, Taplow</div>
+          <div class="event-detail">Club Room &nbsp;·&nbsp; National Trust mansion on the Thames &nbsp;·&nbsp; 375 acres of formal gardens &nbsp;·&nbsp; 15% summer rate applied<br>Amenities: Thames-side spa, outdoor pool, clay pigeon shooting, archery, foraging</div>
+          <span class="event-ref">#59369SG120285</span>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">Evening</div>
+        <div class="event-icon">🍽</div>
+        <div class="event-body">
+          <div class="event-name">Dinner at Cliveden</div>
+          <div class="event-detail">André Garrett Restaurant (fine dining) or The Astor Grill (relaxed) &nbsp;·&nbsp; Book ahead with the hotel</div>
+        </div>
+      </div>
+      <div class="note-inline">Cliveden is 25 minutes from Heathrow — a relaxed morning departure for the 10:30 AM flight tomorrow is entirely achievable.</div>
+    </div>
+  </div>
+
+  <!-- DAY 8: Jun 30 -->
+  <div class="day">
+    <div class="day-date-col">
+      <span class="day-weekday">Tue</span>
+      <span class="day-num">30</span>
+      <span class="day-month">June</span>
+    </div>
+    <div class="day-content">
+      <div class="day-location">Heathrow → Rome</div>
+      <div class="day-title">Fly to Rome</div>
+      <div class="event">
+        <div class="event-time">Early AM</div>
+        <div class="event-icon">🚗</div>
+        <div class="event-body">
+          <div class="event-name">Return Turo BMW X4 near Heathrow</div>
+          <div class="event-detail">Coordinate drop-off time &amp; location with host Adrian &nbsp;·&nbsp; Allow time to reach the terminal</div>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">10:30 AM</div>
+        <div class="event-icon">✈</div>
+        <div class="event-body">
+          <div class="event-name">Depart LHR → Rome Fiumicino (FCO)</div>
+          <div class="event-detail">ITA Airways AZ203 &nbsp;·&nbsp; ~2h 30m &nbsp;·&nbsp; Arrive Rome ~1:00 PM local time</div>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">Afternoon</div>
+        <div class="event-icon">🏨</div>
+        <div class="event-body">
+          <div class="event-name">Check in — Rome Hotel</div>
+          <div class="event-detail">Deluxe Room &nbsp;·&nbsp; €221.75/night &nbsp;·&nbsp; Jun 30–Jul 3</div>
+          <span class="event-ref">8701/2026</span>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">Evening</div>
+        <div class="event-icon">🍹</div>
+        <div class="event-body">
+          <div class="event-name">Aperitivo &amp; first night in Rome</div>
+          <div class="event-detail">Casa Monti Rooftop bar or Black Market Hall &nbsp;·&nbsp; Explore the Monti neighbourhood</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 9: Jul 1 -->
+  <div class="day">
+    <div class="day-date-col">
+      <span class="day-weekday">Wed</span>
+      <span class="day-num">1</span>
+      <span class="day-month">July</span>
+    </div>
+    <div class="day-content">
+      <div class="day-location">Rome — Centro Storico</div>
+      <div class="day-title">Pantheon, Piazzas &amp; Dinner for Four</div>
+      <div class="event">
+        <div class="event-time">10:30 AM</div>
+        <div class="event-icon">🏛</div>
+        <div class="event-body">
+          <div class="event-name">Pantheon — Timed Entry</div>
+          <div class="event-detail">Piazza della Rotunda &nbsp;·&nbsp; Tickets confirmed &nbsp;·&nbsp; One of the best-preserved Roman structures on earth</div>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">Afternoon</div>
+        <div class="event-icon">🗺</div>
+        <div class="event-body">
+          <div class="event-name">Trevi Fountain · Spanish Steps · Piazza Navona</div>
+          <div class="event-detail">Trevi: €2 coin toss &nbsp;·&nbsp; Sant'Ignazio church (free, stunning trompe-l'œil ceiling) &nbsp;·&nbsp; Borghese Gallery if pre-booked</div>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">Aperitivo</div>
+        <div class="event-icon">🍹</div>
+        <div class="event-body">
+          <div class="event-name">Casa Monti Rooftop or Black Market Hall</div>
+        </div>
+      </div>
+      <div class="event alert">
+        <div class="event-time">Dinner</div>
+        <div class="event-icon">🍽</div>
+        <div class="event-body">
+          <div class="event-name">La Taverna dei Fori Imperiali <span class="book-badge">Book Now</span></div>
+          <div class="event-detail">Via della Madonna dei Monti 9 &nbsp;·&nbsp; Party of 4 &nbsp;·&nbsp; Roman trattoria — cacio e pepe, seasonal pastas<br>Book via Quandoo at latavernadeiforiimperiali.com (no email; Quandoo is the only path)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 10: Jul 2 -->
+  <div class="day">
+    <div class="day-date-col">
+      <span class="day-weekday">Thu</span>
+      <span class="day-num">2</span>
+      <span class="day-month">July</span>
+    </div>
+    <div class="day-content">
+      <div class="day-location">Rome — Ancient Rome</div>
+      <div class="day-title">Colosseum, Forum &amp; Palatine Hill</div>
+      <div class="event">
+        <div class="event-time">8:45 AM</div>
+        <div class="event-icon">🏟</div>
+        <div class="event-body">
+          <div class="event-name">Colosseum — Guided Tour with Arena Floor Access</div>
+          <div class="event-detail">Includes Roman Forum + Palatine Hill &nbsp;·&nbsp; Allow 3–4 hours &nbsp;·&nbsp; Wear comfortable shoes</div>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">Afternoon</div>
+        <div class="event-icon">🗺</div>
+        <div class="event-body">
+          <div class="event-name">Capitoline Hill &amp; Museums</div>
+          <div class="event-detail">Capitoline Museums (buy day-of per reviews) &nbsp;·&nbsp; Piazza Venezia viewpoint &nbsp;·&nbsp; Castel Sant'Angelo (~1:30 PM, ticket + audio guide)</div>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">6–7 PM</div>
+        <div class="event-icon">🍹</div>
+        <div class="event-body">
+          <div class="event-name">Freni e Frizioni — Aperitivo</div>
+          <div class="event-detail">Free spritz + snacks &nbsp;·&nbsp; Campo de' Fiori area &nbsp;·&nbsp; One of Rome's best aperitivo spots</div>
+        </div>
+      </div>
+      <div class="event alert">
+        <div class="event-time">Dinner</div>
+        <div class="event-icon">🍽</div>
+        <div class="event-body">
+          <div class="event-name">Nonna Betta or Osteria La Gensola <span class="book-badge">Book Now</span></div>
+          <div class="event-detail">Party of 4 &nbsp;·&nbsp; Jewish Ghetto / Trastevere area<br>Nonna Betta: Roman-Jewish classics — carciofi alla giudia, baccalà fritto<br>Osteria La Gensola: Sicilian-Roman, exceptional fish dishes</div>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">Late</div>
+        <div class="event-icon">🍦</div>
+        <div class="event-body">
+          <div class="event-name">Gelato — Gelateria Pasquino</div>
+          <div class="event-detail">Trastevere &nbsp;·&nbsp; A perfect last night in Rome send-off</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 11: Jul 3 -->
+  <div class="day">
+    <div class="day-date-col">
+      <span class="day-weekday">Fri</span>
+      <span class="day-num">3</span>
+      <span class="day-month">July</span>
+    </div>
+    <div class="day-content">
+      <div class="day-location">Rome → San Francisco</div>
+      <div class="day-title">Vatican &amp; Homeward</div>
+      <div class="event">
+        <div class="event-time">10:00 AM</div>
+        <div class="event-icon">⛪</div>
+        <div class="event-body">
+          <div class="event-name">Vatican City — Special Access Tour</div>
+          <div class="event-detail">Tours and the City &nbsp;·&nbsp; 7:45 AM guided early access &nbsp;·&nbsp; Vatican Museum + Sistine Chapel + St. Peter's Basilica + St. Peter's Square (free)<br>Note: confirm exact meet time with Tours and the City — ticket shows 7:45 AM access</div>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">12:15 PM</div>
+        <div class="event-icon">🚕</div>
+        <div class="event-body">
+          <div class="event-name">Pre-booked Taxi: Vatican → Fiumicino (FCO)</div>
+          <div class="event-detail">~30–40 min &nbsp;·&nbsp; Arrive airport by 1:00 PM &nbsp;·&nbsp; Carry-on only — straight to check-in</div>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-time">3:40 PM</div>
+        <div class="event-icon">✈</div>
+        <div class="event-body">
+          <div class="event-name">Depart FCO → San Francisco (SFO)</div>
+          <div class="event-detail">Arrives San Francisco 7:25 PM &nbsp;·&nbsp; Welcome home.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end timeline -->
+
+<!-- PRACTICAL NOTES -->
+<div class="notes-section">
+  <h3>Practical Notes</h3>
+  <div class="notes-grid">
+    <div class="notes-block">
+      <h4>Before You Leave</h4>
+      <ul>
+        <li>UK ETA: required for US citizens, £10/person — apply at gov.uk now</li>
+        <li>Book Borghese Gallery (Rome, Jul 1) — timed entry fills weeks ahead</li>
+        <li>Confirm Vatican tour meet time with Tours and the City</li>
+        <li>Pre-book FCO taxi for Jul 3 (Vatican → airport)</li>
+        <li>Carry-on only for both travelers — confirmed ✓</li>
+      </ul>
+    </div>
+    <div class="notes-block">
+      <h4>Driving in England</h4>
+      <ul>
+        <li>Drive on the left — BMW X4 is a large vehicle on narrow Cotswolds lanes</li>
+        <li>Pick up the car Jun 26 (day of departure), not earlier — London parking is expensive</li>
+        <li>~190–220 miles total across the England driving days</li>
+        <li>Cliveden is 25 min from Heathrow — relaxed Jun 30 departure</li>
+      </ul>
+    </div>
+    <div class="notes-block">
+      <h4>Packing</h4>
+      <ul>
+        <li>England late June: 19–21°C, long daylight hours, unpredictable rain — packable rain jacket essential</li>
+        <li>Rome early July: 28–32°C, hot and sunny — light layers, serious walking shoes</li>
+        <li>Vatican dress code: shoulders and knees must be covered to enter</li>
+      </ul>
+    </div>
+    <div class="notes-block">
+      <h4>Rome Group Logistics</h4>
+      <ul>
+        <li>All Rome dinners are for party of 4 (Casey, Ashley + couple)</li>
+        <li>The Chequers (Jun 28) currently booked for 2 — update if needed</li>
+        <li>Jul 3: depart Vatican by 12:15 PM latest for 3:40 PM flight</li>
+        <li>Carry-on only = no bag drop, straight through security</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-left">Prepared with care &nbsp;·&nbsp; England &amp; Rome, 2026</div>
+  <div class="footer-right">Last updated June 9, 2026</div>
+</div>
+
+</body>
+</html>
