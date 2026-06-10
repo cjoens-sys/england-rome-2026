@@ -8,4 +8,1400 @@
 <meta name="apple-mobile-web-app-title" content="England & Rome">
 <meta name="theme-color" content="#1B2A3B">
 <title>England & Rome · Jun–Jul 2026</title>
-    <!-- Full app loaded -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#1B2A3B;
+  --navy-lt:#243549;
+  --navy-card:#1e3048;
+  --gold:#C9A96E;
+  --gold-lt:#E8D5B0;
+  --gold-dim:rgba(201,169,110,0.15);
+  --parch:#F7F3ED;
+  --slate:#8A9BAE;
+  --ink:#E8EDF2;
+  --muted:#7A8FA0;
+  --rule:rgba(255,255,255,0.08);
+  --card:#243549;
+  --card-hover:#2a3d56;
+  --green:#4CAF82;
+  --green-bg:rgba(76,175,130,0.12);
+  --red:#E07B54;
+  --red-bg:rgba(224,123,84,0.12);
+  --radius:12px;
+  --safe-bottom:env(safe-area-inset-bottom, 0px);
+}
+html{height:100%;overflow-x:hidden;}
+body{
+  background:var(--navy);
+  color:var(--ink);
+  font-family:'DM Sans',sans-serif;
+  font-weight:300;
+  min-height:100vh;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* HEADER */
+.app-header{
+  background:var(--navy);
+  padding:56px 20px 0;
+  position:relative;
+  overflow:hidden;
+}
+.app-header::before{
+  content:'';
+  position:absolute;
+  top:-60px;right:-60px;
+  width:260px;height:260px;
+  border-radius:50%;
+  border:1px solid rgba(201,169,110,0.12);
+  pointer-events:none;
+}
+.header-eyebrow{
+  font-size:10px;font-weight:500;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:8px;
+}
+.header-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:38px;font-weight:300;line-height:1.05;
+  color:white;margin-bottom:4px;
+}
+.header-title em{font-style:italic;color:var(--gold-lt);}
+.header-sub{
+  font-size:13px;color:var(--slate);
+  margin-bottom:20px;font-weight:300;
+}
+.header-chips{
+  display:flex;gap:8px;flex-wrap:wrap;
+  margin-bottom:20px;
+}
+.chip{
+  background:var(--gold-dim);
+  border:1px solid rgba(201,169,110,0.25);
+  color:var(--gold-lt);
+  font-size:10px;font-weight:500;
+  letter-spacing:0.1em;text-transform:uppercase;
+  padding:4px 10px;border-radius:20px;
+}
+
+/* ACTION BANNER */
+.action-banner{
+  margin:0 16px 16px;
+  background:var(--red-bg);
+  border:1px solid rgba(224,123,84,0.3);
+  border-radius:var(--radius);
+  padding:14px 16px;
+}
+.action-banner-title{
+  font-size:10px;font-weight:600;
+  letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--red);margin-bottom:10px;
+  display:flex;align-items:center;gap:6px;
+}
+.action-item{
+  display:flex;align-items:flex-start;gap:8px;
+  font-size:12.5px;color:rgba(232,237,242,0.85);
+  margin-bottom:7px;line-height:1.4;
+}
+.action-item:last-child{margin-bottom:0;}
+.action-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--red);margin-top:5px;flex-shrink:0;
+}
+
+/* DAY TABS */
+.tabs-wrap{
+  position:sticky;top:0;z-index:100;
+  background:var(--navy);
+  border-bottom:1px solid var(--rule);
+  padding:0 0 0 0;
+}
+.tabs{
+  display:flex;
+  overflow-x:auto;
+  scrollbar-width:none;
+  padding:10px 16px;
+  gap:8px;
+}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{
+  flex-shrink:0;
+  background:var(--navy-lt);
+  border:1px solid var(--rule);
+  border-radius:20px;
+  padding:6px 14px;
+  font-size:12px;font-weight:500;
+  color:var(--slate);
+  cursor:pointer;
+  transition:all 0.18s ease;
+  white-space:nowrap;
+  -webkit-tap-highlight-color:transparent;
+}
+.tab.active{
+  background:var(--gold);
+  border-color:var(--gold);
+  color:var(--navy);
+  font-weight:600;
+}
+.tab.today-tab{
+  border-color:rgba(201,169,110,0.4);
+  color:var(--gold);
+}
+
+/* DAY VIEWS */
+.days-container{padding:0 0 80px;}
+.day-section{display:none;padding:16px;}
+.day-section.active{display:block;}
+
+.day-header{
+  display:flex;align-items:flex-start;
+  justify-content:space-between;
+  margin-bottom:16px;
+}
+.day-header-left{}
+.day-location-label{
+  font-size:10px;font-weight:500;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:4px;
+}
+.day-title-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:26px;font-weight:300;
+  color:white;line-height:1.1;
+}
+.day-date-badge{
+  text-align:right;flex-shrink:0;
+  margin-left:12px;
+}
+.day-date-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:36px;font-weight:300;
+  color:var(--gold);line-height:1;
+  display:block;
+}
+.day-date-mo{
+  font-size:10px;font-weight:500;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);display:block;
+  text-align:right;
+}
+
+/* CARDS */
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  margin-bottom:10px;
+  overflow:hidden;
+  border:1px solid var(--rule);
+}
+.card.new{border-color:rgba(76,175,130,0.3);background:rgba(36,53,73,0.9);}
+.card.alert{border-color:rgba(224,123,84,0.35);}
+
+.card-inner{padding:14px 16px;}
+.card-eyebrow{
+  font-size:10px;font-weight:500;
+  letter-spacing:0.14em;text-transform:uppercase;
+  margin-bottom:5px;display:flex;
+  align-items:center;gap:6px;
+}
+.card-eyebrow.flight{color:#6BA3D6;}
+.card-eyebrow.hotel{color:#A78BDA;}
+.card-eyebrow.activity{color:var(--gold);}
+.card-eyebrow.transport{color:#7FC8A4;}
+.card-eyebrow.dinner{color:#F4A261;}
+.card-eyebrow.new-label{color:var(--green);}
+.card-eyebrow.warning{color:var(--red);}
+
+.card-title{
+  font-size:15px;font-weight:500;
+  color:white;margin-bottom:4px;line-height:1.3;
+}
+.card-detail{
+  font-size:12.5px;color:var(--muted);
+  line-height:1.5;
+}
+.card-detail + .card-detail{margin-top:2px;}
+
+.badge{
+  display:inline-block;font-size:9px;
+  font-weight:600;letter-spacing:0.08em;
+  text-transform:uppercase;padding:2px 7px;
+  border-radius:4px;margin-left:4px;
+  vertical-align:middle;
+}
+.badge-new{background:var(--green);color:white;}
+.badge-book{background:var(--red);color:white;}
+.badge-tbd{background:rgba(138,155,174,0.3);color:var(--slate);}
+
+/* REF PILL */
+.ref-row{
+  margin-top:10px;padding-top:10px;
+  border-top:1px solid var(--rule);
+  display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:6px;
+}
+.ref-pill{
+  font-size:11px;font-family:monospace;
+  background:rgba(0,0,0,0.25);
+  border:1px solid var(--rule);
+  color:var(--muted);padding:3px 8px;
+  border-radius:5px;letter-spacing:0.04em;
+}
+.ref-label{
+  font-size:10px;color:var(--muted);
+  text-transform:uppercase;letter-spacing:0.1em;
+}
+
+/* ACTION BUTTONS */
+.card-actions{
+  display:flex;gap:8px;
+  margin-top:10px;flex-wrap:wrap;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:12px;font-weight:500;
+  padding:7px 12px;border-radius:8px;
+  text-decoration:none;
+  -webkit-tap-highlight-color:transparent;
+  transition:opacity 0.15s;
+}
+.btn:active{opacity:0.7;}
+.btn-map{background:rgba(106,163,214,0.15);color:#6BA3D6;border:1px solid rgba(106,163,214,0.25);}
+.btn-phone{background:rgba(76,175,130,0.15);color:var(--green);border:1px solid rgba(76,175,130,0.25);}
+.btn-book{background:rgba(224,123,84,0.15);color:var(--red);border:1px solid rgba(224,123,84,0.3);}
+.btn-info{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(201,169,110,0.25);}
+
+/* NOTE BLOCK */
+.note-block{
+  margin-top:8px;
+  background:var(--gold-dim);
+  border-left:2px solid var(--gold);
+  border-radius:0 6px 6px 0;
+  padding:8px 12px;
+  font-size:12px;color:var(--gold-lt);
+  line-height:1.5;font-style:italic;
+}
+
+/* SECTION DIVIDER */
+.section-label{
+  font-size:10px;font-weight:600;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--muted);
+  margin:18px 0 10px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--rule);
+}
+
+/* BOTTOM NAV */
+.bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;
+  background:rgba(27,42,59,0.95);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-top:1px solid var(--rule);
+  display:flex;
+  padding:10px 0 calc(10px + var(--safe-bottom));
+  z-index:200;
+}
+.nav-btn{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;gap:3px;
+  font-size:10px;font-weight:500;
+  letter-spacing:0.06em;color:var(--muted);
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  border:none;background:none;padding:4px 0;
+}
+.nav-btn.active{color:var(--gold);}
+.nav-icon{font-size:18px;line-height:1;}
+
+/* OVERVIEW TAB */
+.overview-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:10px;margin-bottom:16px;
+}
+.overview-stat{
+  background:var(--card);
+  border:1px solid var(--rule);
+  border-radius:var(--radius);
+  padding:14px;
+}
+.overview-stat-val{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;font-weight:300;
+  color:var(--gold);line-height:1;
+  margin-bottom:4px;
+}
+.overview-stat-label{
+  font-size:11px;color:var(--muted);
+}
+
+/* BOOKINGS LIST */
+.booking-row{
+  background:var(--card);
+  border:1px solid var(--rule);
+  border-radius:var(--radius);
+  padding:14px 16px;
+  margin-bottom:8px;
+  display:flex;gap:12px;align-items:flex-start;
+}
+.booking-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.booking-body{}
+.booking-name{font-size:14px;font-weight:500;color:white;margin-bottom:2px;}
+.booking-meta{font-size:12px;color:var(--muted);line-height:1.4;}
+.booking-ref{
+  display:block;font-size:10px;font-family:monospace;
+  color:rgba(138,155,174,0.7);margin-top:4px;
+  letter-spacing:0.04em;
+}
+
+/* NOTES TAB */
+.notes-block-card{
+  background:var(--card);
+  border:1px solid var(--rule);
+  border-radius:var(--radius);
+  padding:16px;margin-bottom:10px;
+}
+.notes-block-title{
+  font-size:10px;font-weight:600;
+  letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:10px;
+}
+.notes-list{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.notes-list li{
+  font-size:13px;color:var(--muted);
+  padding-left:14px;position:relative;line-height:1.4;
+}
+.notes-list li::before{
+  content:'—';position:absolute;left:0;
+  color:var(--gold);font-size:11px;
+}
+
+/* TODAY INDICATOR */
+.today-glow{
+  display:inline-block;width:7px;height:7px;
+  border-radius:50%;background:var(--green);
+  margin-right:5px;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(76,175,130,0.4);}
+  50%{box-shadow:0 0 0 5px rgba(76,175,130,0);}
+}
+
+/* FLIGHT STRIP */
+.flight-strip{
+  background:linear-gradient(135deg, rgba(107,163,214,0.1), rgba(167,139,218,0.08));
+  border:1px solid rgba(107,163,214,0.2);
+  border-radius:var(--radius);padding:14px 16px;
+  margin-bottom:10px;
+}
+.flight-row{
+  display:flex;align-items:center;
+  justify-content:space-between;
+}
+.flight-airport{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;font-weight:300;color:white;
+}
+.flight-arrow{color:var(--slate);font-size:16px;flex:1;text-align:center;}
+.flight-meta{font-size:11.5px;color:var(--muted);margin-top:6px;text-align:center;}
+
+/* HIDDEN */
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* CURRENCY CONVERTER */
+.fx-panel{padding:16px 16px 90px;}
+.fx-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;font-weight:300;color:white;
+  margin-bottom:4px;
+}
+.fx-subtitle{font-size:12px;color:var(--muted);margin-bottom:24px;}
+.fx-card{
+  background:var(--card);border:1px solid var(--rule);
+  border-radius:var(--radius);padding:20px;margin-bottom:12px;
+}
+.fx-label{
+  font-size:10px;font-weight:600;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:10px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.fx-flag{font-size:18px;}
+.fx-input-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.fx-input{
+  flex:1;background:var(--navy-lt);border:1px solid var(--rule);
+  border-radius:8px;padding:12px 14px;font-size:22px;font-weight:300;
+  color:white;font-family:'Cormorant Garamond',serif;
+  -webkit-appearance:none;outline:none;
+}
+.fx-input:focus{border-color:var(--gold);}
+.fx-currency-badge{
+  font-size:13px;font-weight:600;color:var(--gold);
+  background:var(--gold-dim);border:1px solid rgba(201,169,110,0.25);
+  border-radius:8px;padding:8px 12px;white-space:nowrap;
+}
+.fx-result{
+  font-family:'Cormorant Garamond',serif;
+  font-size:32px;font-weight:300;color:var(--gold-lt);
+  line-height:1;
+}
+.fx-result-label{font-size:12px;color:var(--muted);margin-top:4px;}
+.fx-divider{
+  border:none;border-top:1px solid var(--rule);margin:16px 0;
+}
+.fx-rate-note{font-size:11px;color:var(--muted);text-align:center;margin-top:16px;line-height:1.5;}
+.fx-rate-note a{color:var(--gold);text-decoration:none;}
+.fx-quick-label{
+  font-size:10px;font-weight:600;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--muted);margin:0 0 10px;
+}
+.fx-quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+.fx-quick-btn{
+  background:var(--navy-lt);border:1px solid var(--rule);
+  border-radius:8px;padding:10px 12px;font-size:12px;
+  color:var(--slate);cursor:pointer;text-align:left;
+  -webkit-tap-highlight-color:transparent;
+}
+.fx-quick-btn span{display:block;font-size:10px;color:var(--muted);margin-top:2px;}
+
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <div class="header-eyebrow">Casey &amp; Ashley · June–July 2026</div>
+  <div class="header-title">England<br><em>&amp; Rome</em></div>
+  <div class="header-sub">10 days · Jun 23 – Jul 3</div>
+  <div class="header-chips">
+    <span class="chip">London</span>
+    <span class="chip">Cotswolds</span>
+    <span class="chip">Bath</span>
+    <span class="chip">Cliveden</span>
+    <span class="chip">Rome</span>
+  </div>
+</div>
+
+<!-- ACTION BANNER -->
+<div class="action-banner">
+  <div class="action-banner-title">⚡ Action needed before departure</div>
+  <div class="action-item"><div class="action-dot"></div><div><strong>UK ETA</strong> — £10/person at gov.uk · required for US citizens</div></div>
+  <div class="action-item"><div class="action-dot"></div><div><strong>La Taverna Jul 1</strong> — Book for 4 via Quandoo at latavernadeiforiimperiali.com</div></div>
+  <div class="action-item"><div class="action-dot"></div><div><strong>Jul 2 dinner</strong> — Nonna Betta or Osteria La Gensola, party of 4</div></div>
+  <div class="action-item"><div class="action-dot"></div><div><strong>Roman Baths date</strong> — Ashley to send original booking confirmation</div></div>
+  <div class="action-item"><div class="action-dot"></div><div><strong>The Chequers Jun 28</strong> — Confirm if 2 guests needs updating to 4</div></div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-wrap">
+  <div class="tabs" id="mainTabs">
+    <div class="tab active" onclick="showTab('overview')" id="tab-overview">Overview</div>
+    <div class="tab" onclick="showDay(0)" id="tab-day0">Jun 23</div>
+    <div class="tab" onclick="showDay(1)" id="tab-day1">Jun 24</div>
+    <div class="tab" onclick="showDay(2)" id="tab-day2">Jun 25</div>
+    <div class="tab" onclick="showDay(3)" id="tab-day3">Jun 26</div>
+    <div class="tab" onclick="showDay(4)" id="tab-day4">Jun 27</div>
+    <div class="tab" onclick="showDay(5)" id="tab-day5">Jun 28</div>
+    <div class="tab" onclick="showDay(6)" id="tab-day6">Jun 29</div>
+    <div class="tab" onclick="showDay(7)" id="tab-day7">Jun 30</div>
+    <div class="tab" onclick="showDay(8)" id="tab-day8">Jul 1</div>
+    <div class="tab" onclick="showDay(9)" id="tab-day9">Jul 2</div>
+    <div class="tab" onclick="showDay(10)" id="tab-day10">Jul 3</div>
+  </div>
+</div>
+
+<div class="days-container">
+
+<!-- OVERVIEW TAB -->
+<div class="tab-content active" id="content-overview">
+  <div style="padding:16px;">
+    <div class="overview-grid">
+      <div class="overview-stat"><div class="overview-stat-val">10</div><div class="overview-stat-label">Days abroad</div></div>
+      <div class="overview-stat"><div class="overview-stat-val">5</div><div class="overview-stat-label">Destinations</div></div>
+      <div class="overview-stat"><div class="overview-stat-val">2</div><div class="overview-stat-label">Countries</div></div>
+      <div class="overview-stat"><div class="overview-stat-val">3</div><div class="overview-stat-label">Stays</div></div>
+    </div>
+
+    <div class="section-label">Flights</div>
+    <div class="flight-strip">
+      <div class="flight-row">
+        <div class="flight-airport">SFO</div>
+        <div class="flight-arrow">——✈——</div>
+        <div class="flight-airport">LHR</div>
+      </div>
+      <div class="flight-meta">Tue Jun 23 · 4:45 PM · United UA948 · arrives Jun 24 11:10 AM</div>
+    </div>
+    <div class="flight-strip">
+      <div class="flight-row">
+        <div class="flight-airport">LHR</div>
+        <div class="flight-arrow">——✈——</div>
+        <div class="flight-airport">FCO</div>
+      </div>
+      <div class="flight-meta">Tue Jun 30 · 10:30 AM · ITA Airways AZ203</div>
+    </div>
+    <div class="flight-strip">
+      <div class="flight-row">
+        <div class="flight-airport">FCO</div>
+        <div class="flight-arrow">——✈——</div>
+        <div class="flight-airport">SFO</div>
+      </div>
+      <div class="flight-meta">Fri Jul 3 · 3:40 PM · arrives 7:25 PM</div>
+    </div>
+
+    <div class="section-label">Confirmed Stays</div>
+    <div class="booking-row">
+      <div class="booking-icon">🏨</div>
+      <div class="booking-body">
+        <div class="booking-name">Hoxton Shoreditch</div>
+        <div class="booking-meta">London · Jun 24–26 · Cosy Double · Flexible cancel</div>
+        <span class="booking-ref">#595958660485</span>
+      </div>
+    </div>
+    <div class="booking-row">
+      <div class="booking-icon">🏡</div>
+      <div class="booking-body">
+        <div class="booking-name">Wedgewood Barn</div>
+        <div class="booking-meta">Long Compton, Cotswolds · Jun 26–29 · Airbnb</div>
+        <span class="booking-ref">RCM8533T22</span>
+      </div>
+    </div>
+    <div class="booking-row">
+      <div class="booking-icon">🏰</div>
+      <div class="booking-body">
+        <div class="booking-name">Cliveden House</div>
+        <div class="booking-meta">Taplow, Berkshire · Jun 29–30 · Club Room · Non-refundable</div>
+        <span class="booking-ref">#59369SG120285</span>
+      </div>
+    </div>
+    <div class="booking-row">
+      <div class="booking-icon">🇮🇹</div>
+      <div class="booking-body">
+        <div class="booking-name">Rome — Deluxe Room</div>
+        <div class="booking-meta">Jun 30–Jul 3 · €221.75/night · 3 nights</div>
+        <span class="booking-ref">8701/2026</span>
+      </div>
+    </div>
+    <div class="booking-row">
+      <div class="booking-icon">🚗</div>
+      <div class="booking-body">
+        <div class="booking-name">Turo BMW X4</div>
+        <div class="booking-meta">Host: Adrian · Jun 26–30 · Non-refundable</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 0: Jun 23 -->
+<div class="tab-content" id="content-day0">
+  <div style="padding:16px;">
+    <div class="day-header">
+      <div class="day-header-left">
+        <div class="day-location-label">San Francisco</div>
+        <div class="day-title-text">Departure Day</div>
+      </div>
+      <div class="day-date-badge">
+        <span class="day-date-num">23</span>
+        <span class="day-date-mo">June</span>
+      </div>
+    </div>
+    <div class="flight-strip">
+      <div class="flight-row">
+        <div class="flight-airport">SFO</div>
+        <div class="flight-arrow">——✈——</div>
+        <div class="flight-airport">LHR</div>
+      </div>
+      <div class="flight-meta">4:45 PM · United UA948 · ~10h 25m · Carry-on only</div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow activity">💡 Tips for the flight</div>
+        <div class="card-title">Night flight — arrive well-rested</div>
+        <div class="card-detail">Land 11:10 AM London time · Beat jet lag by staying awake on arrival · Elizabeth line from Heathrow to Shoreditch: ~50 min</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 1: Jun 24 -->
+<div class="tab-content" id="content-day1">
+  <div style="padding:16px;">
+    <div class="day-header">
+      <div class="day-header-left">
+        <div class="day-location-label">London</div>
+        <div class="day-title-text">Arrive London</div>
+      </div>
+      <div class="day-date-badge">
+        <span class="day-date-num">24</span>
+        <span class="day-date-mo">June</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow flight">✈ 11:10 AM · Arrive Heathrow</div>
+        <div class="card-title">Land at LHR · Elizabeth line into the city</div>
+        <div class="card-detail">Grab an Oyster card at the airport · ~50 min to Shoreditch</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow hotel">🏨 Afternoon · Check in</div>
+        <div class="card-title">Hoxton Shoreditch</div>
+        <div class="card-detail">1 Old Street, London EC1V 9HL · Cosy Double</div>
+        <div class="ref-row">
+          <span class="ref-label">Confirmation</span>
+          <span class="ref-pill">#595958660485</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://maps.apple.com/?q=Hoxton+Shoreditch+1+Old+Street+London" class="btn btn-map">📍 Maps</a>
+          <a href="tel:+442077297777" class="btn btn-phone">📞 Call hotel</a>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow activity">🌆 Evening · Explore</div>
+        <div class="card-title">Shoreditch neighbourhood</div>
+        <div class="card-detail">Brick Lane · Spitalfields Market · Boxpark · Dinner: Brat, Brawn, or Dishoom</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 2: Jun 25 -->
+<div class="tab-content" id="content-day2">
+  <div style="padding:16px;">
+    <div class="day-header">
+      <div class="day-header-left">
+        <div class="day-location-label">London</div>
+        <div class="day-title-text">London Day Two</div>
+      </div>
+      <div class="day-date-badge">
+        <span class="day-date-num">25</span>
+        <span class="day-date-mo">June</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow activity">🗺 Morning</div>
+        <div class="card-title">South Bank &amp; Borough Market</div>
+        <div class="card-detail">Tate Modern (free) · Millennium Bridge · Borough Market for lunch</div>
+        <div class="card-actions">
+          <a href="https://maps.apple.com/?q=Borough+Market+London" class="btn btn-map">📍 Maps</a>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow activity">🏛 Afternoon</div>
+        <div class="card-title">Tower Bridge · V&amp;A or National Gallery</div>
+        <div class="card-detail">Both museums are free · V&amp;A is 15 min by tube from Borough</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow dinner">🍽 Evening · Dinner</div>
+        <div class="card-title">East London dining</div>
+        <div class="card-detail">Brat (Shoreditch) · Brawn · or classic Dishoom for Indian street food</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 3: Jun 26 -->
+<div class="tab-content" id="content-day3">
+  <div style="padding:16px;">
+    <div class="day-header">
+      <div class="day-header-left">
+        <div class="day-location-label">London → Bath → Cotswolds</div>
+        <div class="day-title-text">Drive Day &amp; Iford Manor</div>
+      </div>
+      <div class="day-date-badge">
+        <span class="day-date-num">26</span>
+        <span class="day-date-mo">June</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow transport">🚗 Morning · Pick up car</div>
+        <div class="card-title">Turo BMW X4 — London</div>
+        <div class="card-detail">Host: Adrian · Non-refundable · Head southwest toward Bath (~2 hrs)</div>
+      </div>
+    </div>
+    <div class="card new">
+      <div class="card-inner">
+        <div class="card-eyebrow new-label">🌿 12:30 PM · Iford Manor <span class="badge badge-new">Ashley booked</span></div>
+        <div class="card-title">Iford Manor Estate Gardens</div>
+        <div class="card-detail">Historic Wiltshire estate · 2 adults · Enter by 3 PM, garden closes 4 PM · On-site restaurant (call ahead for lunch reservation)</div>
+        <div class="ref-row">
+          <span class="ref-label">Booking ref</span>
+          <span class="ref-pill">D7PN4C7Q8</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://maps.apple.com/?q=Iford+Manor+Bradford+on+Avon" class="btn btn-map">📍 Maps</a>
+          <a href="tel:+441225863146" class="btn btn-phone">📞 Call estate</a>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow hotel">🏡 Evening · Check in</div>
+        <div class="card-title">Wedgewood Barn, Long Compton</div>
+        <div class="card-detail">Private Airbnb barn · Your Cotswolds base for 3 nights</div>
+        <div class="ref-row">
+          <span class="ref-label">Airbnb receipt</span>
+          <span class="ref-pill">RCM8533T22</span>
+        </div>
+      </div>
+    </div>
+    <div class="note-block">Iford Manor is ~50 min south of Long Compton — plan it en route rather than as a day trip from the barn.</div>
+  </div>
+</div>
+
+<!-- DAY 4: Jun 27 -->
+<div class="tab-content" id="content-day4">
+  <div style="padding:16px;">
+    <div class="day-header">
+      <div class="day-header-left">
+        <div class="day-location-label">The Cotswolds</div>
+        <div class="day-title-text">Villages &amp; Countryside</div>
+      </div>
+      <div class="day-date-badge">
+        <span class="day-date-num">27</span>
+        <span class="day-date-mo">June</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow activity">🗺 All day · Village hopping</div>
+        <div class="card-title">Cotswolds classics</div>
+        <div class="card-detail">Bourton-on-the-Water · Burford (antiques, great pubs) · Chipping Campden · The Slaughters · Hidcote Manor Garden (National Trust)</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow warning">🛁 TBD · Roman Baths <span class="badge badge-tbd">Date TBD</span></div>
+        <div class="card-title">Roman Baths, Bath</div>
+        <div class="card-detail">Ashley's ticket ref RBODEUKDQ8CIJ — date unknown until she forwards original confirmation. Bath is ~50 min from Long Compton, could anchor this day beautifully.</div>
+        <div class="card-actions">
+          <a href="https://maps.apple.com/?q=Roman+Baths+Bath+England" class="btn btn-map">📍 Maps</a>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow dinner">🍺 Evening · Pub dinner</div>
+        <div class="card-title">Cotswolds pub picks</div>
+        <div class="card-detail">The Wild Rabbit, Kingham · The Fleece Inn, Bretforton (14th-century) · The Plough, Ford</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 5: Jun 28 -->
+<div class="tab-content" id="content-day5">
+  <div style="padding:16px;">
+    <div class="day-header">
+      <div class="day-header-left">
+        <div class="day-location-label">The Cotswolds</div>
+        <div class="day-title-text">Sunday Roast Day</div>
+      </div>
+      <div class="day-date-badge">
+        <span class="day-date-num">28</span>
+        <span class="day-date-mo">June</span>
+      </div>
+    </div>
+    <div class="card new">
+      <div class="card-inner">
+        <div class="card-eyebrow new-label">🍖 1:00 PM · Sunday Roast <span class="badge badge-new">Ashley booked</span></div>
+        <div class="card-title">The Chequers, Churchill</div>
+        <div class="card-detail">Church Rd, Churchill, Chipping Norton OX7 6NJ · 2 guests · ~10 min from Long Compton</div>
+        <div class="ref-row">
+          <span class="ref-label">Reservation</span>
+          <span class="ref-pill">BJP4FZW2</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://maps.apple.com/?q=The+Chequers+Churchill+Chipping+Norton" class="btn btn-map">📍 Maps</a>
+          <a href="tel:+441608659393" class="btn btn-phone">📞 Call pub</a>
+        </div>
+        <div class="note-block" style="margin-top:10px;">⚠ Booked for 2 — confirm if the other couple is joining and update to party of 4.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow activity">🌳 Afternoon</div>
+        <div class="card-title">Rollright Stones &amp; final Cotswolds hours</div>
+        <div class="card-detail">Ancient stone circle just 10 min from Long Compton · Relax at the barn in the late afternoon</div>
+        <div class="card-actions">
+          <a href="https://maps.apple.com/?q=Rollright+Stones+Oxfordshire" class="btn btn-map">📍 Maps</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 6: Jun 29 -->
+<div class="tab-content" id="content-day6">
+  <div style="padding:16px;">
+    <div class="day-header">
+      <div class="day-header-left">
+        <div class="day-location-label">Cotswolds → Cliveden House</div>
+        <div class="day-title-text">Check in to Cliveden</div>
+      </div>
+      <div class="day-date-badge">
+        <span class="day-date-num">29</span>
+        <span class="day-date-mo">June</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow transport">🚗 Morning · Check out &amp; drive</div>
+        <div class="card-title">Wedgewood Barn → Taplow</div>
+        <div class="card-detail">~1.5–2 hrs · Optional stop: Oxford or Windsor en route</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow hotel">🏰 Afternoon · Check in</div>
+        <div class="card-title">Cliveden House, Taplow</div>
+        <div class="card-detail">Club Room · National Trust mansion on the Thames · 375 acres of formal gardens · Spa, pool, archery, foraging · 15% summer rate applied · Non-refundable</div>
+        <div class="ref-row">
+          <span class="ref-label">Confirmation</span>
+          <span class="ref-pill">#59369SG120285</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://maps.apple.com/?q=Cliveden+House+Taplow+Berkshire" class="btn btn-map">📍 Maps</a>
+          <a href="tel:+441628668561" class="btn btn-phone">📞 Call hotel</a>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow dinner">🍽 Evening · Dinner on property</div>
+        <div class="card-title">André Garrett Restaurant or The Astor Grill</div>
+        <div class="card-detail">Book ahead with the hotel · André Garrett for fine dining · Astor Grill for a relaxed evening</div>
+      </div>
+    </div>
+    <div class="note-block">Cliveden is 25 min from Heathrow — a genuinely relaxed start to tomorrow's 10:30 AM flight.</div>
+  </div>
+</div>
+
+<!-- DAY 7: Jun 30 -->
+<div class="tab-content" id="content-day7">
+  <div style="padding:16px;">
+    <div class="day-header">
+      <div class="day-header-left">
+        <div class="day-location-label">Heathrow → Rome</div>
+        <div class="day-title-text">Fly to Rome</div>
+      </div>
+      <div class="day-date-badge">
+        <span class="day-date-num">30</span>
+        <span class="day-date-mo">June</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow transport">🚗 Early AM · Return car</div>
+        <div class="card-title">Return Turo BMW X4 near Heathrow</div>
+        <div class="card-detail">Coordinate drop-off time &amp; location with host Adrian · Allow time to reach the terminal · Be at LHR by 8:00 AM</div>
+      </div>
+    </div>
+    <div class="flight-strip">
+      <div class="flight-row">
+        <div class="flight-airport">LHR</div>
+        <div class="flight-arrow">——✈——</div>
+        <div class="flight-airport">FCO</div>
+      </div>
+      <div class="flight-meta">10:30 AM · ITA Airways AZ203 · ~2h 30m · Arrive Rome ~1:00 PM</div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow hotel">🏨 Afternoon · Check in Rome</div>
+        <div class="card-title">Rome Hotel — Deluxe Room</div>
+        <div class="card-detail">Jun 30–Jul 3 · €221.75/night</div>
+        <div class="ref-row">
+          <span class="ref-label">Booking code</span>
+          <span class="ref-pill">8701/2026</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow activity">🍹 Evening · First night in Rome</div>
+        <div class="card-title">Aperitivo &amp; Monti neighbourhood</div>
+        <div class="card-detail">Casa Monti Rooftop bar · or Black Market Hall · Explore the Monti streets after</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 8: Jul 1 -->
+<div class="tab-content" id="content-day8">
+  <div style="padding:16px;">
+    <div class="day-header">
+      <div class="day-header-left">
+        <div class="day-location-label">Rome — Centro Storico</div>
+        <div class="day-title-text">Pantheon &amp; Piazzas</div>
+      </div>
+      <div class="day-date-badge">
+        <span class="day-date-num">1</span>
+        <span class="day-date-mo">July</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow activity">🏛 10:30 AM · Confirmed</div>
+        <div class="card-title">Pantheon — Timed Entry</div>
+        <div class="card-detail">Piazza della Rotunda · Tickets confirmed · One of the best-preserved Roman structures on earth · Allow ~45 min inside</div>
+        <div class="card-actions">
+          <a href="https://maps.apple.com/?q=Pantheon+Rome+Italy" class="btn btn-map">📍 Maps</a>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow activity">🗺 Afternoon</div>
+        <div class="card-title">Trevi Fountain · Spanish Steps · Piazza Navona</div>
+        <div class="card-detail">Trevi: €2 coin toss · Sant'Ignazio church (free, stunning trompe-l'œil ceiling) · Borghese Gallery if pre-booked</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow activity">🍹 6–7 PM · Aperitivo</div>
+        <div class="card-title">Casa Monti Rooftop or Black Market Hall</div>
+      </div>
+    </div>
+    <div class="card alert">
+      <div class="card-inner">
+        <div class="card-eyebrow warning">🍽 Dinner <span class="badge badge-book">Book now</span></div>
+        <div class="card-title">La Taverna dei Fori Imperiali</div>
+        <div class="card-detail">Via della Madonna dei Monti 9 · Party of 4 · Roman trattoria — cacio e pepe, seasonal pastas · Book via Quandoo at latavernadeiforiimperiali.com</div>
+        <div class="card-actions">
+          <a href="https://www.latavernadeiforiimperiali.com" class="btn btn-book">🔗 Book via Quandoo</a>
+          <a href="https://maps.apple.com/?q=La+Taverna+dei+Fori+Imperiali+Rome" class="btn btn-map">📍 Maps</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 9: Jul 2 -->
+<div class="tab-content" id="content-day9">
+  <div style="padding:16px;">
+    <div class="day-header">
+      <div class="day-header-left">
+        <div class="day-location-label">Rome — Ancient Rome</div>
+        <div class="day-title-text">Colosseum &amp; Forum</div>
+      </div>
+      <div class="day-date-badge">
+        <span class="day-date-num">2</span>
+        <span class="day-date-mo">July</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow activity">🏟 8:45 AM · Guided tour</div>
+        <div class="card-title">Colosseum — Arena Floor Access</div>
+        <div class="card-detail">Includes Roman Forum + Palatine Hill · Allow 3–4 hours · Wear comfortable shoes</div>
+        <div class="card-actions">
+          <a href="https://maps.apple.com/?q=Colosseum+Rome+Italy" class="btn btn-map">📍 Maps</a>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow activity">🗺 Afternoon</div>
+        <div class="card-title">Capitoline Hill · Castel Sant'Angelo</div>
+        <div class="card-detail">Capitoline Museums (buy day-of) · Piazza Venezia viewpoint · Castel Sant'Angelo ~1:30 PM entry with audio guide</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow activity">🍹 6–7 PM · Aperitivo</div>
+        <div class="card-title">Freni e Frizioni</div>
+        <div class="card-detail">Free spritz + snacks · Campo de' Fiori area · One of Rome's best aperitivo spots</div>
+        <div class="card-actions">
+          <a href="https://maps.apple.com/?q=Freni+e+Frizioni+Rome" class="btn btn-map">📍 Maps</a>
+        </div>
+      </div>
+    </div>
+    <div class="card alert">
+      <div class="card-inner">
+        <div class="card-eyebrow warning">🍽 Dinner · Party of 4 <span class="badge badge-book">Book now</span></div>
+        <div class="card-title">Nonna Betta or Osteria La Gensola</div>
+        <div class="card-detail">Nonna Betta: Roman-Jewish classics — carciofi alla giudia, baccalà fritto · Jewish Ghetto<br><br>Osteria La Gensola: Sicilian-Roman, exceptional fish · Trastevere</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow activity">🍦 Late · Gelato</div>
+        <div class="card-title">Gelateria Pasquino, Trastevere</div>
+        <div class="card-detail">The perfect last-night-in-Rome send-off</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 10: Jul 3 -->
+<div class="tab-content" id="content-day10">
+  <div style="padding:16px;">
+    <div class="day-header">
+      <div class="day-header-left">
+        <div class="day-location-label">Rome → San Francisco</div>
+        <div class="day-title-text">Vatican &amp; Homeward</div>
+      </div>
+      <div class="day-date-badge">
+        <span class="day-date-num">3</span>
+        <span class="day-date-mo">July</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow activity">⛪ 10:00 AM · Confirmed tour</div>
+        <div class="card-title">Vatican City — Special Access Tour</div>
+        <div class="card-detail">Tours and the City · 7:45 AM early guided access · Vatican Museum + Sistine Chapel + St. Peter's Basilica + St. Peter's Square · Confirm exact meet time with Tours and the City · Dress code: shoulders &amp; knees covered</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-eyebrow transport">🚕 12:15 PM · Leave Vatican</div>
+        <div class="card-title">Pre-booked taxi → Fiumicino (FCO)</div>
+        <div class="card-detail">~30–40 min drive · Arrive airport by 1:00 PM · Carry-on only — straight through to security · Depart no later than 12:15 PM</div>
+      </div>
+    </div>
+    <div class="flight-strip">
+      <div class="flight-row">
+        <div class="flight-airport">FCO</div>
+        <div class="flight-arrow">——✈——</div>
+        <div class="flight-airport">SFO</div>
+      </div>
+      <div class="flight-meta">3:40 PM · Arrives San Francisco 7:25 PM · Welcome home. 🏠</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- days-container -->
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="nav-btn active" id="nav-itinerary" onclick="switchNav('itinerary')">
+    <span class="nav-icon">🗓</span>Itinerary
+  </button>
+  <button class="nav-btn" id="nav-bookings" onclick="switchNav('bookings')">
+    <span class="nav-icon">🔖</span>Bookings
+  </button>
+  <button class="nav-btn" id="nav-notes" onclick="switchNav('notes')">
+    <span class="nav-icon">📋</span>Notes
+  </button>
+  <button class="nav-btn" id="nav-currency" onclick="switchNav('currency')">
+    <span class="nav-icon">💱</span>Currency
+  </button>
+</div>
+
+<!-- BOOKINGS PANEL (hidden by default) -->
+<div id="panel-bookings" style="display:none;">
+  <div style="padding:16px 16px 90px;">
+    <div class="section-label" style="margin-top:8px;">Flights</div>
+    <div class="booking-row"><div class="booking-icon">✈</div><div class="booking-body"><div class="booking-name">SFO → LHR</div><div class="booking-meta">Tue Jun 23 · 4:45 PM · United UA948</div></div></div>
+    <div class="booking-row"><div class="booking-icon">✈</div><div class="booking-body"><div class="booking-name">LHR → FCO</div><div class="booking-meta">Tue Jun 30 · 10:30 AM · ITA Airways AZ203</div></div></div>
+    <div class="booking-row"><div class="booking-icon">✈</div><div class="booking-body"><div class="booking-name">FCO → SFO</div><div class="booking-meta">Fri Jul 3 · 3:40 PM · arrives 7:25 PM</div></div></div>
+
+    <div class="section-label">Hotels</div>
+    <div class="booking-row"><div class="booking-icon">🏨</div><div class="booking-body"><div class="booking-name">Hoxton Shoreditch</div><div class="booking-meta">Jun 24–26 · Cosy Double · Flexible cancel</div><span class="booking-ref">#595958660485</span></div></div>
+    <div class="booking-row"><div class="booking-icon">🏡</div><div class="booking-body"><div class="booking-name">Wedgewood Barn</div><div class="booking-meta">Jun 26–29 · Long Compton, Cotswolds</div><span class="booking-ref">RCM8533T22</span></div></div>
+    <div class="booking-row"><div class="booking-icon">🏰</div><div class="booking-body"><div class="booking-name">Cliveden House</div><div class="booking-meta">Jun 29–30 · Club Room · Non-refundable</div><span class="booking-ref">#59369SG120285</span></div></div>
+    <div class="booking-row"><div class="booking-icon">🇮🇹</div><div class="booking-body"><div class="booking-name">Rome Hotel — Deluxe Room</div><div class="booking-meta">Jun 30–Jul 3 · €221.75/night</div><span class="booking-ref">8701/2026</span></div></div>
+
+    <div class="section-label">Activities</div>
+    <div class="booking-row"><div class="booking-icon">🌿</div><div class="booking-body"><div class="booking-name">Iford Manor Estate Gardens</div><div class="booking-meta">Fri Jun 26 · 12:30 PM · 2 adults</div><span class="booking-ref">D7PN4C7Q8</span></div></div>
+    <div class="booking-row"><div class="booking-icon">🍖</div><div class="booking-body"><div class="booking-name">The Chequers — Sunday Roast</div><div class="booking-meta">Sun Jun 28 · 1:00 PM · 2 guests ⚠</div><span class="booking-ref">BJP4FZW2</span></div></div>
+    <div class="booking-row"><div class="booking-icon">🛁</div><div class="booking-body"><div class="booking-name">Roman Baths, Bath</div><div class="booking-meta">Date TBD — confirm with Ashley</div><span class="booking-ref">RBODEUKDQ8CIJ</span></div></div>
+    <div class="booking-row"><div class="booking-icon">🏛</div><div class="booking-body"><div class="booking-name">Pantheon, Rome</div><div class="booking-meta">Wed Jul 1 · 10:30 AM · Tickets confirmed</div></div></div>
+    <div class="booking-row"><div class="booking-icon">⛪</div><div class="booking-body"><div class="booking-name">Vatican / Sistine Chapel Tour</div><div class="booking-meta">Fri Jul 3 · 10:00 AM · Tours and the City</div></div></div>
+
+    <div class="section-label">Transport</div>
+    <div class="booking-row"><div class="booking-icon">🚗</div><div class="booking-body"><div class="booking-name">Turo BMW X4</div><div class="booking-meta">Jun 26–30 · Host: Adrian · Non-refundable</div></div></div>
+  </div>
+</div>
+
+<!-- NOTES PANEL (hidden by default) -->
+<div id="panel-notes" style="display:none;">
+  <div style="padding:16px 16px 90px;">
+    <div class="action-banner" style="margin:0 0 16px;">
+      <div class="action-banner-title">⚡ Still needed</div>
+      <div class="action-item"><div class="action-dot"></div><div><strong>UK ETA</strong> — £10/person · gov.uk or UK ETA App</div></div>
+      <div class="action-item"><div class="action-dot"></div><div><strong>La Taverna Jul 1</strong> — book for 4 via latavernadeiforiimperiali.com</div></div>
+      <div class="action-item"><div class="action-dot"></div><div><strong>Jul 2 dinner</strong> — Nonna Betta or Osteria La Gensola, party of 4</div></div>
+      <div class="action-item"><div class="action-dot"></div><div><strong>Roman Baths date</strong> — Ashley to forward confirmation</div></div>
+      <div class="action-item"><div class="action-dot"></div><div><strong>The Chequers</strong> — confirm party of 2 vs 4</div></div>
+    </div>
+    <div class="notes-block-card">
+      <div class="notes-block-title">Driving in England</div>
+      <ul class="notes-list">
+        <li>Drive on the LEFT — BMW X4 is large on narrow Cotswolds lanes</li>
+        <li>Pick up car Jun 26 (day of departure from London), not earlier</li>
+        <li>~190–220 miles total across the England driving days</li>
+        <li>Cliveden is 25 min from Heathrow — relaxed Jun 30 departure</li>
+      </ul>
+    </div>
+    <div class="notes-block-card">
+      <div class="notes-block-title">Packing (carry-on only)</div>
+      <ul class="notes-list">
+        <li>England late June: 19–21°C · long daylight · bring packable rain jacket</li>
+        <li>Rome early July: 28–32°C · hot &amp; sunny · light layers + serious walking shoes</li>
+        <li>Vatican dress code: shoulders &amp; knees must be covered</li>
+      </ul>
+    </div>
+    <div class="notes-block-card">
+      <div class="notes-block-title">Rome — Group Logistics</div>
+      <ul class="notes-list">
+        <li>All Rome dinners: party of 4 (Casey, Ashley + couple)</li>
+        <li>Jul 3: leave Vatican by 12:15 PM latest for 3:40 PM flight</li>
+        <li>Carry-on only = no bag drop, straight through security at FCO</li>
+        <li>Pre-book taxi Vatican → FCO before the trip</li>
+      </ul>
+    </div>
+    <div class="notes-block-card">
+      <div class="notes-block-title">Emergency Contacts</div>
+      <ul class="notes-list">
+        <li>Hoxton Shoreditch: +44 20 7729 7777</li>
+        <li>Cliveden House: +44 1628 668561</li>
+        <li>Iford Manor: +44 1225 863146</li>
+        <li>The Chequers: +44 1608 659393</li>
+        <li>US Embassy London: +44 20 7499 9000</li>
+        <li>US Embassy Rome: +39 06 46741</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- CURRENCY PANEL (hidden by default) -->
+<div id="panel-currency" style="display:none;">
+  <div class="fx-panel">
+    <div class="fx-title">Currency</div>
+    <div class="fx-subtitle">Live rates · tap any amount to convert</div>
+
+    <!-- USD → GBP -->
+    <div class="fx-card">
+      <div class="fx-label">
+        <span>US Dollar → British Pound</span>
+        <span class="fx-flag">🇬🇧</span>
+      </div>
+      <div class="fx-input-row">
+        <input class="fx-input" id="usd-gbp-input" type="number" inputmode="decimal" placeholder="0" oninput="convertUsdGbp(this.value)">
+        <span class="fx-currency-badge">USD $</span>
+      </div>
+      <div class="fx-result" id="usd-gbp-result">—</div>
+      <div class="fx-result-label">British Pounds (GBP £)</div>
+    </div>
+
+    <!-- USD → EUR -->
+    <div class="fx-card">
+      <div class="fx-label">
+        <span>US Dollar → Euro</span>
+        <span class="fx-flag">🇪🇺</span>
+      </div>
+      <div class="fx-input-row">
+        <input class="fx-input" id="usd-eur-input" type="number" inputmode="decimal" placeholder="0" oninput="convertUsdEur(this.value)">
+        <span class="fx-currency-badge">USD $</span>
+      </div>
+      <div class="fx-result" id="usd-eur-result">—</div>
+      <div class="fx-result-label">Euros (EUR €)</div>
+    </div>
+
+    <!-- Quick reference -->
+    <div class="fx-quick-label">Quick reference</div>
+    <div class="fx-quick-grid" id="quick-grid-gbp">
+      <div class="fx-quick-btn" onclick="setAndConvert('usd-gbp-input',10,'usd-gbp')">$10 <span id="q-gbp-10">≈ £—</span></div>
+      <div class="fx-quick-btn" onclick="setAndConvert('usd-gbp-input',50,'usd-gbp')">$50 <span id="q-gbp-50">≈ £—</span></div>
+      <div class="fx-quick-btn" onclick="setAndConvert('usd-gbp-input',100,'usd-gbp')">$100 <span id="q-gbp-100">≈ £—</span></div>
+      <div class="fx-quick-btn" onclick="setAndConvert('usd-gbp-input',200,'usd-gbp')">$200 <span id="q-gbp-200">≈ £—</span></div>
+    </div>
+    <div class="fx-quick-grid" id="quick-grid-eur">
+      <div class="fx-quick-btn" onclick="setAndConvert('usd-eur-input',10,'usd-eur')">$10 <span id="q-eur-10">≈ €—</span></div>
+      <div class="fx-quick-btn" onclick="setAndConvert('usd-eur-input',50,'usd-eur')">$50 <span id="q-eur-50">≈ €—</span></div>
+      <div class="fx-quick-btn" onclick="setAndConvert('usd-eur-input',100,'usd-eur')">$100 <span id="q-eur-100">≈ €—</span></div>
+      <div class="fx-quick-btn" onclick="setAndConvert('usd-eur-input',200,'usd-eur')">$200 <span id="q-eur-200">≈ €—</span></div>
+    </div>
+
+    <div class="fx-rate-note" id="fx-rate-note">Fetching live rates…</div>
+  </div>
+</div>
+
+<script>
+// State
+let currentDay = null;
+let currentNav = 'itinerary';
+
+// Tab days data
+const dayDates = [
+  new Date(2026, 5, 23), // Jun 23
+  new Date(2026, 5, 24),
+  new Date(2026, 5, 25),
+  new Date(2026, 5, 26),
+  new Date(2026, 5, 27),
+  new Date(2026, 5, 28),
+  new Date(2026, 5, 29),
+  new Date(2026, 5, 30),
+  new Date(2026, 6, 1),  // Jul 1
+  new Date(2026, 6, 2),
+  new Date(2026, 6, 3),
+];
+
+function showTab(id) {
+  // hide all panels
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('panel-bookings').style.display = 'none';
+  document.getElementById('panel-notes').style.display = 'none';
+
+  document.getElementById('content-' + id).classList.add('active');
+  document.getElementById('tab-overview').classList.add('active');
+  currentDay = null;
+}
+
+function showDay(idx) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('panel-bookings').style.display = 'none';
+  document.getElementById('panel-notes').style.display = 'none';
+
+  document.getElementById('content-day' + idx).classList.add('active');
+  document.getElementById('tab-day' + idx).classList.add('active');
+  currentDay = idx;
+
+  // scroll tab into view
+  const tab = document.getElementById('tab-day' + idx);
+  tab.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+}
+
+function switchNav(nav) {
+  currentNav = nav;
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('nav-' + nav).classList.add('active');
+
+  // hide all
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.getElementById('panel-bookings').style.display = 'none';
+  document.getElementById('panel-notes').style.display = 'none';
+  document.getElementById('panel-currency').style.display = 'none';
+  document.querySelector('.tabs-wrap').style.display = 'block';
+
+  if (nav === 'itinerary') {
+    // restore last itinerary state
+    if (currentDay !== null) {
+      document.getElementById('content-day' + currentDay).classList.add('active');
+      document.getElementById('tab-day' + currentDay).classList.add('active');
+    } else {
+      document.getElementById('content-overview').classList.add('active');
+      document.getElementById('tab-overview').classList.add('active');
+    }
+  } else if (nav === 'bookings') {
+    document.querySelector('.tabs-wrap').style.display = 'none';
+    document.getElementById('panel-bookings').style.display = 'block';
+  } else if (nav === 'notes') {
+    document.querySelector('.tabs-wrap').style.display = 'none';
+    document.getElementById('panel-notes').style.display = 'block';
+  } else if (nav === 'currency') {
+    document.querySelector('.tabs-wrap').style.display = 'none';
+    document.getElementById('panel-currency').style.display = 'block';
+  }
+}
+
+// ── CURRENCY CONVERTER ──────────────────────────────────────────────
+let fxRates = { GBP: null, EUR: null };
+let fxFetched = false;
+
+async function fetchRates() {
+  if (fxFetched) return;
+  try {
+    const r = await fetch('https://open.er-api.com/v6/latest/USD');
+    const d = await r.json();
+    if (d.result === 'success') {
+      fxRates.GBP = d.rates.GBP;
+      fxRates.EUR = d.rates.EUR;
+      fxFetched = true;
+      const updated = new Date(d.time_last_update_utc).toLocaleDateString('en-US',{month:'short',day:'numeric'});
+      document.getElementById('fx-rate-note').innerHTML =
+        `Rates updated ${updated} · <a href="https://open.er-api.com" target="_blank">open.er-api.com</a>`;
+      updateQuickRef();
+    }
+  } catch(e) {
+    // fallback to approximate rates if fetch fails
+    fxRates.GBP = 0.787;
+    fxRates.EUR = 0.921;
+    fxFetched = true;
+    document.getElementById('fx-rate-note').textContent = 'Using approximate rates (no connection)';
+    updateQuickRef();
+  }
+}
+
+function fmtGBP(n) { return '£' + n.toFixed(2); }
+function fmtEUR(n) { return '€' + n.toFixed(2); }
+
+function convertUsdGbp(val) {
+  if (!fxFetched) { fetchRates(); }
+  const n = parseFloat(val);
+  const el = document.getElementById('usd-gbp-result');
+  if (!val || isNaN(n)) { el.textContent = '—'; return; }
+  el.textContent = fxRates.GBP ? fmtGBP(n * fxRates.GBP) : '…';
+}
+
+function convertUsdEur(val) {
+  if (!fxFetched) { fetchRates(); }
+  const n = parseFloat(val);
+  const el = document.getElementById('usd-eur-result');
+  if (!val || isNaN(n)) { el.textContent = '—'; return; }
+  el.textContent = fxRates.EUR ? fmtEUR(n * fxRates.EUR) : '…';
+}
+
+function setAndConvert(inputId, amount, pair) {
+  document.getElementById(inputId).value = amount;
+  if (pair === 'usd-gbp') convertUsdGbp(amount);
+  else convertUsdEur(amount);
+}
+
+function updateQuickRef() {
+  const gbpAmounts = [10,50,100,200];
+  const eurAmounts = [10,50,100,200];
+  gbpAmounts.forEach(a => {
+    const el = document.getElementById('q-gbp-'+a);
+    if (el && fxRates.GBP) el.textContent = '≈ ' + fmtGBP(a * fxRates.GBP);
+  });
+  eurAmounts.forEach(a => {
+    const el = document.getElementById('q-eur-'+a);
+    if (el && fxRates.EUR) el.textContent = '≈ ' + fmtEUR(a * fxRates.EUR);
+  });
+}
+
+// Pre-fetch rates on load
+fetchRates();
+
+// Auto-jump to today's day on load
+function initToday() {
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  let todayIdx = -1;
+  for (let i = 0; i < dayDates.length; i++) {
+    const d = new Date(dayDates[i]);
+    d.setHours(0,0,0,0);
+    if (d.getTime() === today.getTime()) {
+      todayIdx = i;
+      break;
+    }
+  }
+  if (todayIdx >= 0) {
+    // mark the tab
+    const tab = document.getElementById('tab-day' + todayIdx);
+    tab.classList.add('today-tab');
+    tab.innerHTML = '<span class="today-glow"></span>' + tab.textContent;
+  }
+}
+
+initToday();
+</script>
+</body>
+</html>
